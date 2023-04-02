@@ -16,6 +16,7 @@ namespace PasteIt
 
             DataContext = this;
             ShowInTaskbar = false;
+
             Deactivated += ContextClipboard_Deactivated;
             ClipboardList.MouseLeftButtonUp += ClipboardList_MouseLeftButtonUp;
             PreviewKeyDown += ContextClipboard_PreviewKeyDown;
@@ -26,19 +27,20 @@ namespace PasteIt
         protected override void OnContentRendered(EventArgs e)
         {
             base.OnContentRendered(e);
+            Console.WriteLine("CC RENDER");
             transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
-            MoveBottomRightEdgeOfWindowToMousePosition();
+            Relocate();
         }
 
         public void Relocate()
         {
-            MoveBottomRightEdgeOfWindowToMousePosition();
-        }
+            Point mouse = transform.Transform(new Point(Control.MousePosition.X, Control.MousePosition.Y));
+            System.Drawing.Rectangle screenBounds = Screen.FromControl(new Control()).WorkingArea;
 
-        private void MoveBottomRightEdgeOfWindowToMousePosition()
-        {
-            Point mouse = transform.Transform(GetMousePosition());
-            System.Drawing.Rectangle screenBounds = GetScaledWorkingArea(transform);
+            screenBounds.X = (int)(screenBounds.X * transform.M11);
+            screenBounds.Y = (int)(screenBounds.Y * transform.M22);
+            screenBounds.Width = (int)(screenBounds.Width * transform.M11);
+            screenBounds.Height = (int)(screenBounds.Height * transform.M22);
 
             double left, top;
 
@@ -48,36 +50,17 @@ namespace PasteIt
             {
                 top = mouse.Y - ActualHeight + 20;
                 ItemsVerticalAlignment = VerticalAlignment.Bottom;
-                ((App)System.Windows.Application.Current).OrderFromBottom();
+                ((App)System.Windows.Application.Current).OrderListItem(false);
             }
             else
             {
                 top = mouse.Y - 15;
                 ItemsVerticalAlignment = VerticalAlignment.Top;
-                ((App)System.Windows.Application.Current).OrderFromTop();
+                ((App)System.Windows.Application.Current).OrderListItem(true);
             }
 
             Left = left;
             Top = top;
-        }
-
-        private static Point GetMousePosition()
-        {
-            System.Drawing.Point point = Control.MousePosition;
-            return new Point(point.X, point.Y);
-        }
-
-        private System.Drawing.Rectangle GetScaledWorkingArea(Matrix transform)
-        {
-            Screen screen = Screen.FromControl(new Control());
-            System.Drawing.Rectangle workingArea = screen.WorkingArea;
-
-            workingArea.X = (int)(workingArea.X * transform.M11);
-            workingArea.Y = (int)(workingArea.Y * transform.M22);
-            workingArea.Width = (int)(workingArea.Width * transform.M11);
-            workingArea.Height = (int)(workingArea.Height * transform.M22);
-
-            return workingArea;
         }
 
         #endregion
@@ -87,9 +70,7 @@ namespace PasteIt
 
         private void ContextClipboard_Deactivated(object sender, EventArgs e)
         {
-            App appInstance = (App)System.Windows.Application.Current;
-
-            appInstance.OnClickNoPaste(this);
+            ((App)System.Windows.Application.Current).OnClickNoPaste(this);
         }
 
         private void ClipboardList_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -98,12 +79,8 @@ namespace PasteIt
 
             if (ClipboardList.SelectedItem != null)
             {
-                string selectedItemText = ClipboardList.SelectedItem as string;
-                if (ClipboardList.SelectedIndex != 0)
-                {
-                    appInstance.OnClickDeleteItem(ClipboardList.SelectedIndex);
-                }
-                System.Windows.Clipboard.SetText(selectedItemText);
+                ClipboardHistoryItem selectedItemText = ClipboardList.SelectedItem as ClipboardHistoryItem;
+                System.Windows.Clipboard.SetText(selectedItemText.Text);
                 appInstance.OnClickPasteItem(this);
             }
             else
@@ -114,11 +91,7 @@ namespace PasteIt
 
         private void DeleteItem_Click(object sender, RoutedEventArgs e)
         {
-            App appInstance = (App)System.Windows.Application.Current;
-
-            int selectedIndex = ClipboardList.SelectedIndex;
-
-            appInstance.OnClickDeleteItem(selectedIndex);
+            ((App)System.Windows.Application.Current).OnClickDeleteItem(ClipboardList.SelectedIndex);
         }
 
         private void ContextClipboard_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)

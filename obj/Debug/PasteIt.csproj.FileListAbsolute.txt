@@ -17,3 +17,4 @@ C:\Users\okdon\Desktop\오동욱\개인 플젝\PasteIt\obj\Debug\PasteIt.applica
 C:\Users\okdon\Desktop\오동욱\개인 플젝\PasteIt\obj\Debug\PasteIt.csproj.CopyComplete
 C:\Users\okdon\Desktop\오동욱\개인 플젝\PasteIt\obj\Debug\PasteIt.exe
 C:\Users\okdon\Desktop\오동욱\개인 플젝\PasteIt\obj\Debug\PasteIt.pdb
+C:\Users\okdon\Desktop\오동욱\개인 플젝\PasteIt\obj\Debug\PasteIt.csproj.AssemblyReference.cache

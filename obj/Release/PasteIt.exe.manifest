@@ -54,14 +54,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PasteIt.exe" size="175072">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PasteIt.exe" size="171488">
       <assemblyIdentity name="PasteIt" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>QtTZGwcf4YmqaYFma/VDVmtDUlOiVWNNDBwSuioHcLY=</dsig:DigestValue>
+        <dsig:DigestValue>FFfgWY+Acs+s15fJE9xPkeFAp8e3yQI2kuYBneWzVGE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

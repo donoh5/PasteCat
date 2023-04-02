@@ -74,6 +74,7 @@ namespace PasteIt
         private const int MaxHistorySize = 100;
         private readonly string _historyFilePath = "clipboard_history.json";
         private UserSettings userSettings;
+        private bool _isRegistered = false;
 
         #endregion
 
@@ -82,6 +83,8 @@ namespace PasteIt
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            System.Windows.Media.RenderOptions.ProcessRenderMode = RenderMode.Default;
+
             base.OnStartup(e);
 
             userSettings = new UserSettings();
@@ -125,14 +128,24 @@ namespace PasteIt
 
         public void RegisterHotKey()
         {
+            if (_isRegistered)
+            {
+                return;
+            }
             _source.AddHook(HwndHook);
             _ = RegisterHotKey(_source.Handle, MYACTION_HOTKEY_ID_PASTE, 2, 0x56); //CTRL V
+            _isRegistered = true;
         }
 
         public void UnregisterHotKey()
         {
+            if (!_isRegistered)
+            {
+                return;
+            }
             _source.RemoveHook(HwndHook);
             _ = UnregisterHotKey(_source.Handle, MYACTION_HOTKEY_ID_PASTE);
+            _isRegistered = false;
         }
 
         public void OnClickNoPaste(ContextClipboard cc)
@@ -145,8 +158,7 @@ namespace PasteIt
         {
             cc.Hide();
             UnregisterHotKey();
-            KeySimulator.SimulatePaste();
-            // System.Windows.Forms.SendKeys.SendWait("^v");
+            System.Windows.Forms.SendKeys.SendWait("^v");
             RegisterHotKey();
         }
 
@@ -157,16 +169,13 @@ namespace PasteIt
             SaveClipboardHistory(history);
         }
 
-        public void OrderFromTop()
+        public void OrderListItem(bool fromTop)
         {
             List<ClipboardHistoryItem> history = LoadClipboardHistory();
-            SaveClipboardHistory(history);
-        }
-
-        public void OrderFromBottom()
-        {
-            List<ClipboardHistoryItem> history = LoadClipboardHistory();
-            history.Reverse();
+            if (!fromTop)
+            {
+                history.Reverse();
+            }
             SaveClipboardHistory(history);
         }
 
@@ -189,10 +198,10 @@ namespace PasteIt
         {
             Dispatcher.Invoke(() =>
             {
-                if (System.Windows.Forms.Clipboard.ContainsText())
+                if (Clipboard.ContainsText())
                 {
                     RegisterHotKey();
-                    string clipboardText = System.Windows.Forms.Clipboard.GetText();
+                    string clipboardText = Clipboard.GetText();
                     if (clipboardText != _lastClipboardText)
                     {
                         _lastClipboardText = clipboardText;
@@ -251,11 +260,8 @@ namespace PasteIt
             string json = JsonConvert.SerializeObject(history, Formatting.Indented);
             File.WriteAllText(_historyFilePath, json);
 
-            cc.ClipboardList.Items.Clear();
-            foreach (ClipboardHistoryItem item in history)
-            {
-                _ = cc.ClipboardList.Items.Add(item.Text);
-            }
+            cc.ClipboardList.ItemsSource = history;
+            cc.ClipboardList.DisplayMemberPath = "Text";
         }
 
         #endregion

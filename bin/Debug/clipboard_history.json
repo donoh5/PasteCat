@@ -1,5 +1,13 @@
 [
   {
+    "Timestamp": "2023-04-02T15:29:32.6918655Z",
+    "Text": "\r\n                ClipboardList.SelectedIndex = ClipboardList.Items.Count - 1;\r\n                ClipboardList.ScrollIntoView(ClipboardList.SelectedItem);"
+  },
+  {
+    "Timestamp": "2023-04-02T15:28:21.7912007Z",
+    "Text": "\r\n                ClipboardList.SelectedIndex = ClipboardList.Items.Count - 1;\r\n                ClipboardList.ScrollIntoView(ClipboardList.SelectedItem);"
+  },
+  {
     "Timestamp": "2023-04-02T06:05:49.6471868Z",
     "Text": "기"
   },
