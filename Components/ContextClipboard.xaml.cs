@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
@@ -13,6 +14,7 @@ namespace PasteIt
         {
             InitializeComponent();
 
+            DataContext = this;
             ShowInTaskbar = false;
             Deactivated += ContextClipboard_Deactivated;
             ClipboardList.MouseLeftButtonUp += ClipboardList_MouseLeftButtonUp;
@@ -42,7 +44,18 @@ namespace PasteIt
 
             left = mouse.X + ActualWidth > screenBounds.Right ? mouse.X - ActualWidth + 20 : mouse.X - 15;
 
-            top = mouse.Y + ActualHeight > screenBounds.Bottom ? mouse.Y - ActualHeight + 20 : mouse.Y - 15;
+            if (mouse.Y + ActualHeight > screenBounds.Bottom)
+            {
+                top = mouse.Y - ActualHeight + 20;
+                ItemsVerticalAlignment = VerticalAlignment.Bottom;
+                ((App)System.Windows.Application.Current).OrderFromBottom();
+            }
+            else
+            {
+                top = mouse.Y - 15;
+                ItemsVerticalAlignment = VerticalAlignment.Top;
+                ((App)System.Windows.Application.Current).OrderFromTop();
+            }
 
             Left = left;
             Top = top;
@@ -118,5 +131,25 @@ namespace PasteIt
 
         #endregion
 
+    }
+
+    public partial class ContextClipboard : Window, INotifyPropertyChanged
+    {
+        private VerticalAlignment _itemsVerticalAlignment;
+        public VerticalAlignment ItemsVerticalAlignment
+        {
+            get { return _itemsVerticalAlignment; }
+            set
+            {
+                _itemsVerticalAlignment = value;
+                OnPropertyChanged("ItemsVerticalAlignment");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

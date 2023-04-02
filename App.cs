@@ -6,6 +6,7 @@ using System.Windows.Interop;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace PasteIt
 {
@@ -40,7 +41,6 @@ namespace PasteIt
                             {
 
                             }
-
                             break;
                         default:
                             break;
@@ -145,7 +145,8 @@ namespace PasteIt
         {
             cc.Hide();
             UnregisterHotKey();
-            System.Windows.Forms.SendKeys.SendWait("^v");
+            KeySimulator.SimulatePaste();
+            // System.Windows.Forms.SendKeys.SendWait("^v");
             RegisterHotKey();
         }
 
@@ -153,6 +154,19 @@ namespace PasteIt
         {
             List<ClipboardHistoryItem> history = LoadClipboardHistory();
             history.RemoveAt(index);
+            SaveClipboardHistory(history);
+        }
+
+        public void OrderFromTop()
+        {
+            List<ClipboardHistoryItem> history = LoadClipboardHistory();
+            SaveClipboardHistory(history);
+        }
+
+        public void OrderFromBottom()
+        {
+            List<ClipboardHistoryItem> history = LoadClipboardHistory();
+            history.Reverse();
             SaveClipboardHistory(history);
         }
 
@@ -177,6 +191,7 @@ namespace PasteIt
             {
                 if (System.Windows.Forms.Clipboard.ContainsText())
                 {
+                    RegisterHotKey();
                     string clipboardText = System.Windows.Forms.Clipboard.GetText();
                     if (clipboardText != _lastClipboardText)
                     {
@@ -191,6 +206,10 @@ namespace PasteIt
                             Current.Shutdown();
                         }
                     }
+                }
+                else
+                {
+                    UnregisterHotKey();
                 }
             });
         }
@@ -218,7 +237,8 @@ namespace PasteIt
             if (File.Exists(_historyFilePath))
             {
                 string json = File.ReadAllText(_historyFilePath);
-                return JsonConvert.DeserializeObject<List<ClipboardHistoryItem>>(json);
+                List<ClipboardHistoryItem> items = JsonConvert.DeserializeObject<List<ClipboardHistoryItem>>(json);
+                return items.OrderByDescending(item => item.Timestamp).ToList();
             }
             else
             {
@@ -260,6 +280,10 @@ namespace PasteIt
             setAsStartupItem.Click += SetAsStartupItem_Click;
             _ = contextMenu.Items.Add(setAsStartupItem);
 
+            System.Windows.Forms.ToolStripMenuItem refreshItem = new System.Windows.Forms.ToolStripMenuItem("Reset newest item");
+            refreshItem.Click += RefreshItem_Click;
+            _ = contextMenu.Items.Add(refreshItem);
+
             System.Windows.Forms.ToolStripMenuItem closeItem = new System.Windows.Forms.ToolStripMenuItem("Close");
             closeItem.Click += CloseItem_Click;
             _ = contextMenu.Items.Add(closeItem);
@@ -278,6 +302,11 @@ namespace PasteIt
             {
                 userSettings.CancelStartUp();
             }
+        }
+
+        private void RefreshItem_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(_lastClipboardText);
         }
 
         private void CloseItem_Click(object sender, EventArgs e)

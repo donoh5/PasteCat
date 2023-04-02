@@ -8,6 +8,11 @@
             <ListBox Name="ClipboardList" Background="#FF2D2D2D" BorderThickness="0" 
                      Height="265" ScrollViewer.VerticalScrollBarVisibility="Disabled"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel VerticalAlignment="{Binding ItemsVerticalAlignment}"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
                 <ListBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Delete Item" Click="DeleteItem_Click"/>

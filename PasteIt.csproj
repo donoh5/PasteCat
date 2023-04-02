@@ -89,6 +89,7 @@
     <Compile Include="Components\ContextClipboard.xaml.cs">
       <DependentUpon>ContextClipboard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\KeySimulator.cs" />
     <Compile Include="Components\UserSettings.cs" />
     <Compile Include="ini.cs" />
   </ItemGroup>
