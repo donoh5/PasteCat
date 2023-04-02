@@ -1,0 +1,30 @@
+[
+  {
+    "Timestamp": "2023-04-02T02:37:07.3089845Z",
+    "Text": "\r\n                                hotkeyStopwatch.Stop();"
+  },
+  {
+    "Timestamp": "2023-04-02T02:34:02.3351343Z",
+    "Text": "resourceManagerresourceManagerresourceManagerresourceManager"
+  },
+  {
+    "Timestamp": "2023-04-02T02:33:59.4327647Z",
+    "Text": "\r\n            UnregisterHotKey();\r\n            System.Windows.Forms.SendKeys.SendWait(\"^v\");\r\n            RegisterHotKey();"
+  },
+  {
+    "Timestamp": "2023-04-02T02:31:35.4764308Z",
+    "Text": "\r\n            System.Windows.Forms.SendKeys.SendWait(\"^v\");"
+  },
+  {
+    "Timestamp": "2023-04-02T01:21:53.93512Z",
+    "Text": "resourceManager"
+  },
+  {
+    "Timestamp": "2023-04-02T01:18:05.3019393Z",
+    "Text": "assembly:"
+  },
+  {
+    "Timestamp": "2023-04-02T01:18:01.60726Z",
+    "Text": "SelectedIndex"
+  }
+]
