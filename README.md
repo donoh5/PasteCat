@@ -4,7 +4,7 @@ PasteIt is a handy clipboard management utility for Windows that helps you manag
 
 ## Acknowledgements
 
-This project was initially inspired by a joint idea during a hackathon with my friend. We both shared the importance of managing clipboard content while working on various tasks. Although we had different preferences in the main features, we decided to develop our own versions of the idea. A special thanks to @rmrz-daniel for his collaboration and support during the development process. Check out his version of PasteIt on https://github.com/rmrz-daniel/PasteIT!
+This project was initially inspired by a joint idea during a hackathon with my friend. We both shared the importance of managing clipboard content while working on various tasks. Although we had different preferences in the main features, we decided to develop our own versions of the idea. A special thanks to [@rmrz-daniel](https://github.com/rmrz-daniel) for his collaboration and support during the development process. Check out his version of PasteIt on [here!](https://github.com/rmrz-daniel/PasteIT)
 
 ## Features
 
