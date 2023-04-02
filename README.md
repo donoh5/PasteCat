@@ -2,6 +2,10 @@
 
 PasteIt is a handy clipboard management utility for Windows that helps you manage and access your clipboard history easily. It allows users to quickly access, copy, and paste previous clipboard items and delete items that are no longer needed.
 
+## Acknowledgements
+
+This project was initially inspired by a joint idea during a hackathon with my friend. We both shared the importance of managing clipboard content while working on various tasks. Although we had different preferences in the main features, we decided to develop our own versions of the idea. A special thanks to @rmrz-daniel for his collaboration and support during the development process. Check out his version of PasteIt on https://github.com/rmrz-daniel/PasteIT!
+
 ## Features
 
 - Stores text-based clipboard history
