@@ -20,6 +20,7 @@ This project was initially inspired by a joint idea during a hackathon with my f
 - Context menu to easily access clipboard history
 - Delete items from history
 - Default paste hotkey support for quick access
+- Access most recent clipboard entry with 'Ctrl+Shift+V' hotkey
 - Automatically starts with Windows (optional)
 - Taskbar icon for quick access to settings and features
 
@@ -32,6 +33,8 @@ To install PasteCat, download the latest release from the GitHub Releases page a
 Once PasteCat is running, it will automatically store any text copied to the clipboard. If non-text content is copied, PasteCat will be disabled automatically. To re-enable it, right-click on the taskbar icon and select the "Enable" option.
 
 To access your clipboard history, press the default paste hotkey (`Ctrl` + `V`) to open the context menu near your cursor. Click on an item in the list to copy it to the clipboard, or right-click to delete it from the history.
+
+You can also access the most recent clipboard entry with the custom hotkey ('Ctrl' + 'Shift' + 'V') and paste it directly without opening the context menu.
 
 Right-click on the taskbar icon to access features such as enabling or disabling automatic startup, manually enabling the application, and shutting it down.
 
