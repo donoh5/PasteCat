@@ -8,7 +8,7 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Linq;
 
-namespace PasteIt
+namespace PasteCat
 {
     public class App : Application
     {
@@ -97,6 +97,11 @@ namespace PasteIt
 
             _source = new HwndSource(new HwndSourceParameters());
             RegisterHotKey();
+
+            if (!Clipboard.ContainsText())
+            {
+                Clipboard.SetText("");
+            }
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -154,7 +159,7 @@ namespace PasteIt
             RegisterHotKey();
         }
 
-        public void OnClickPasteItem(ContextClipboard cc)
+        public void OnClickPasteCatem(ContextClipboard cc)
         {
             cc.Hide();
             UnregisterHotKey();
@@ -202,7 +207,7 @@ namespace PasteIt
                 {
                     RegisterHotKey();
                     string clipboardText = Clipboard.GetText();
-                    if (clipboardText != _lastClipboardText)
+                    if (clipboardText != _lastClipboardText && clipboardText != "")
                     {
                         _lastClipboardText = clipboardText;
 
@@ -273,20 +278,20 @@ namespace PasteIt
         {
             ni = new System.Windows.Forms.NotifyIcon();
 
-            ResourceManager resourceManager = new ResourceManager("PasteIt.Properties.Resources", System.Reflection.Assembly.GetExecutingAssembly());
-            ni.Icon = (System.Drawing.Icon)resourceManager.GetObject("pasteIt");
+            ResourceManager resourceManager = new ResourceManager("PasteCat.Properties.Resources", System.Reflection.Assembly.GetExecutingAssembly());
+            ni.Icon = (System.Drawing.Icon)resourceManager.GetObject("pasteCat");
             ni.Visible = true;
-            ni.Text = "Paste It!";
+            ni.Text = "PasteCat";
 
             System.Windows.Forms.ContextMenuStrip contextMenu = new System.Windows.Forms.ContextMenuStrip();
-            System.Windows.Forms.ToolStripMenuItem setAsStartupItem = new System.Windows.Forms.ToolStripMenuItem("Set as start-up")
+            System.Windows.Forms.ToolStripMenuItem setAsStartupItem = new System.Windows.Forms.ToolStripMenuItem("Start with Windows")
             {
                 CheckOnClick = true
             };
             setAsStartupItem.Click += SetAsStartupItem_Click;
             _ = contextMenu.Items.Add(setAsStartupItem);
 
-            System.Windows.Forms.ToolStripMenuItem refreshItem = new System.Windows.Forms.ToolStripMenuItem("Reset newest item");
+            System.Windows.Forms.ToolStripMenuItem refreshItem = new System.Windows.Forms.ToolStripMenuItem("Enable");
             refreshItem.Click += RefreshItem_Click;
             _ = contextMenu.Items.Add(refreshItem);
 
@@ -312,7 +317,7 @@ namespace PasteIt
 
         private void RefreshItem_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(_lastClipboardText);
+            Clipboard.SetText(_lastClipboardText ?? "");
         }
 
         private void CloseItem_Click(object sender, EventArgs e)

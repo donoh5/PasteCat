@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PasteIt
+namespace PasteCat
 {
     public class ClipboardHistoryItem
     {

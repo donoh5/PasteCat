@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
 
-namespace PasteIt
+namespace PasteCat
 {
     public partial class ContextClipboard : Window
     {
@@ -81,7 +81,7 @@ namespace PasteIt
             {
                 ClipboardHistoryItem selectedItemText = ClipboardList.SelectedItem as ClipboardHistoryItem;
                 System.Windows.Clipboard.SetText(selectedItemText.Text);
-                appInstance.OnClickPasteItem(this);
+                appInstance.OnClickPasteCatem(this);
             }
             else
             {

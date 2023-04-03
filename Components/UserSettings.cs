@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows;
 
-namespace PasteIt
+namespace PasteCat
 {
     class UserSettings
     {
@@ -51,9 +51,9 @@ namespace PasteIt
         {
             using (RegistryKey runRegKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true))
             {
-                if (runRegKey.GetValue("PasteIt") == null)
+                if (runRegKey.GetValue("PasteCat") == null)
                 {
-                    runRegKey.SetValue("PasteIt", System.Windows.Forms.Application.ExecutablePath.ToString());
+                    runRegKey.SetValue("PasteCat", System.Windows.Forms.Application.ExecutablePath.ToString());
                 }
 
                 runRegKey.Close();
@@ -67,9 +67,9 @@ namespace PasteIt
         {
             using (RegistryKey runRegKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true))
             {
-                if (runRegKey.GetValue("PasteIt") != null)
+                if (runRegKey.GetValue("PasteCat") != null)
                 {
-                    runRegKey.DeleteValue("PasteIt", false);
+                    runRegKey.DeleteValue("PasteCat", false);
                 }
 
                 runRegKey.Close();

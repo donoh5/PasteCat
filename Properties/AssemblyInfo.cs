@@ -7,13 +7,13 @@ using System.Windows;
 // 어셈블리에 대한 일반 정보는 다음 특성 집합을 통해 
 // 제어됩니다. 어셈블리와 관련된 정보를 수정하려면
 // 이러한 특성 값을 변경하세요.
-[assembly: AssemblyTitle("PasteIt")]
-[assembly: AssemblyDescription("PasteIt")]
-[assembly: AssemblyConfiguration("PasteIt")]
-[assembly: AssemblyCompany("PasteIt")]
-[assembly: AssemblyProduct("PasteIt")]
-[assembly: AssemblyCopyright("Copyright © 2023 PasteIt")]
-[assembly: AssemblyTrademark("PasteIt")]
+[assembly: AssemblyTitle("PasteCat")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("PasteCat")]
+[assembly: AssemblyCopyright("Copyright ©  2023")]
+[assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // ComVisible을 false로 설정하면 이 어셈블리의 형식이 COM 구성 요소에 
@@ -30,7 +30,6 @@ using System.Windows;
 
 //[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
 
-[assembly: Guid("4822D177-9ED7-4749-B2D4-01387D0CD7BB")]
 
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.None, //테마별 리소스 사전의 위치
