@@ -34,7 +34,7 @@ Once PasteCat is running, it will automatically store any text copied to the cli
 
 To access your clipboard history, press the default paste hotkey (`Ctrl` + `V`) to open the context menu near your cursor. Click on an item in the list to copy it to the clipboard, or right-click to delete it from the history.
 
-You can also access the most recent clipboard entry with the custom hotkey ('Ctrl' + 'Shift' + 'V') and paste it directly without opening the context menu.
+You can also access the most recent clipboard entry with the custom hotkey (`Ctrl` + `Shift` + `V`) and paste it directly without opening the context menu.
 
 Right-click on the taskbar icon to access features such as enabling or disabling automatic startup, manually enabling the application, and shutting it down.
 
