@@ -1,3 +1,5 @@
+![](https://github.com/donoh5/PasteCat/blob/main/Resources/pasteCat.ico)
+
 # PasteCat
 
 PasteCat is a handy clipboard management utility for Windows that helps you manage and access your clipboard history easily. It allows users to quickly access, copy, and paste previous clipboard items and delete items that are no longer needed.
