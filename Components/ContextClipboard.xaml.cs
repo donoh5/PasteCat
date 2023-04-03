@@ -27,7 +27,6 @@ namespace PasteCat
         protected override void OnContentRendered(EventArgs e)
         {
             base.OnContentRendered(e);
-            Console.WriteLine("CC RENDER");
             transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
             Relocate();
         }
@@ -51,12 +50,14 @@ namespace PasteCat
                 top = mouse.Y - ActualHeight + 20;
                 ItemsVerticalAlignment = VerticalAlignment.Bottom;
                 ((App)System.Windows.Application.Current).OrderListItem(false);
+                ClipboardList.ScrollIntoView(ClipboardList.Items[ClipboardList.Items.Count - 1]);
             }
             else
             {
                 top = mouse.Y - 15;
                 ItemsVerticalAlignment = VerticalAlignment.Top;
                 ((App)System.Windows.Application.Current).OrderListItem(true);
+                ClipboardList.ScrollIntoView(ClipboardList.Items[0]);
             }
 
             Left = left;

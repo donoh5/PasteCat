@@ -9,20 +9,20 @@ namespace PasteCat
         private IniFile ini;
         private bool startUp = false;
 
-        public void GenerateINI()
+        public bool GenerateINI()
         {
             try
             {
-                ReadINI();
+                return ReadINI();
             }
             catch (FileNotFoundException)
             {
                 WriteINI();
-                ReadINI();
+                return ReadINI();
             }
         }
 
-        private void ReadINI()
+        private bool ReadINI()
         {
             string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
             path = Path.GetDirectoryName(path) + "\\userSettings.ini";
@@ -34,6 +34,8 @@ namespace PasteCat
             string startUpStr = ini["START_SET"]["STARTUP"].ToString();
 
             startUp = startUpStr == "TRUE";
+
+            return startUp;
         }
 
         private void WriteINI()

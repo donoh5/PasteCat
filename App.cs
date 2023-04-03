@@ -30,17 +30,10 @@ namespace PasteCat
                     switch (wParam.ToInt32())
                     {
                         case MYACTION_HOTKEY_ID_PASTE:
-                            try
-                            {
-                                cc.Relocate();
-                                cc.Show();
-                                cc.Topmost = true;
-                                _ = cc.Activate();
-                            }
-                            catch (Exception)
-                            {
-
-                            }
+                            cc.Relocate();
+                            cc.Show();
+                            cc.Topmost = true;
+                            _ = cc.Activate();
                             break;
                         default:
                             break;
@@ -49,6 +42,7 @@ namespace PasteCat
                 default:
                     break;
             }
+
             return IntPtr.Zero;
         }
 
@@ -72,7 +66,7 @@ namespace PasteCat
         private System.Windows.Forms.Timer _clipboardTimer;
         private string _lastClipboardText;
         private const int MaxHistorySize = 100;
-        private readonly string _historyFilePath = "clipboard_history.json";
+        private readonly string _historyFilePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\clipboard_history.json";
         private UserSettings userSettings;
         private bool _isRegistered = false;
 
@@ -88,14 +82,15 @@ namespace PasteCat
             base.OnStartup(e);
 
             userSettings = new UserSettings();
-            userSettings.GenerateINI();
+            bool isStartUp = userSettings.GenerateINI();
 
             InitializeClipboardTimer();
-            GenerateAppIcon();
+            GenerateAppIcon(isStartUp);
 
             cc = new ContextClipboard();
 
             _source = new HwndSource(new HwndSourceParameters());
+
             RegisterHotKey();
 
             if (!Clipboard.ContainsText())
@@ -210,15 +205,7 @@ namespace PasteCat
                     if (clipboardText != _lastClipboardText && clipboardText != "")
                     {
                         _lastClipboardText = clipboardText;
-
-                        try
-                        {
-                            AddToClipboardHistory(clipboardText);
-                        }
-                        catch (Exception)
-                        {
-                            Current.Shutdown();
-                        }
+                        AddToClipboardHistory(clipboardText);
                     }
                 }
                 else
@@ -274,7 +261,7 @@ namespace PasteCat
 
         #region Icon Controller
 
-        private void GenerateAppIcon()
+        private void GenerateAppIcon(bool isStartUp)
         {
             ni = new System.Windows.Forms.NotifyIcon();
 
@@ -288,6 +275,7 @@ namespace PasteCat
             {
                 CheckOnClick = true
             };
+            setAsStartupItem.Checked = isStartUp;
             setAsStartupItem.Click += SetAsStartupItem_Click;
             _ = contextMenu.Items.Add(setAsStartupItem);
 
@@ -331,7 +319,7 @@ namespace PasteCat
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            _ = MessageBox.Show((e.ExceptionObject as Exception).Message);
+            // _ = MessageBox.Show((e.ExceptionObject as Exception).Message);
         }
     }
 }
