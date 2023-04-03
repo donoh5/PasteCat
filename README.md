@@ -36,3 +36,5 @@ Right-click on the taskbar icon to access features such as enabling or disabling
 ## Contributing
 
 Pull requests and bug reports are welcome. If you'd like to contribute, please feel free to fork the repository and submit a pull request with your changes.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
